@@ -1,5 +1,6 @@
 import threading
 import socket
+
 HOST = socket.gethostbyname(socket.gethostname())
 PORT = 55555	
 
@@ -22,25 +23,25 @@ def handle(client):
             msg = message = client.recv(1024)
             if msg.decode('ascii').startswith('KICK'):
                 
-                if nicknames[clients.index(client)] == 'admin':
-                    nameToKick = msg.decode('ascii')[5:]
-                    kickUser(nameToKick)
-                else:
-                    client.send('command was refused'.encode('ascii'))
+                # if nicknames[clients.index(client)] == 'admin': should fix
+                nameToKick = msg.decode('ascii')[5:]
+                kickUser(nameToKick)
+                # else:
+                #     client.send('command was refused'.encode('ascii')) should fix
 
             elif msg.decode('ascii').startswith('BAN'):
 
-                if nicknames[clients.index(client)] == 'admin':
-                    nameToBan = msg.decode('ascii')[4:]
-                    kickUser(nameToBan)
-                    
-                    with open('bans.txt', 'a') as f:
-                        f.write(f'{nameToBan}\n')
-
-                    print(f'{nameToBan} was baned')
+                # if nicknames[clients.index(client)] == 'admin': should fix
+                nameToBan = msg.decode('ascii')[4:]
+                kickUser(nameToBan)
                 
-                else:
-                    client.send('command was refused'.encode('ascii'))
+                with open('bans.txt', 'a') as f:
+                    f.write(f'{nameToBan}\n')
+
+                print(f'{nameToBan} was baned')
+                
+                # else:
+                #     client.send('command was refused'.encode('ascii')) should fix
             else:
                 broadcast(message)
         
