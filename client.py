@@ -1,6 +1,9 @@
 import threading
 import socket
 
+HOST = '127.0.0.1'
+PORT = 55555
+
 stop_thread = False
 
 nickname = input("Enter a nickname : ")
@@ -8,7 +11,7 @@ if nickname == 'admin':
     password = input("Enter password for admin :")
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('127.0.0.1', 55555))
+client.connect((HOST, PORT))
 
 
 def receive():
